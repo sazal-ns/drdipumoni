@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright By Noor Nabiul Alam Siddiqui  (c) 2017.
+  ~  www.fb.com/sazal.ns
+  -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/statusDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/dateView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+            android:layout_gravity="end"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/editFabStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit"
+                android:layout_gravity="end|bottom"
+                android:layout_marginRight="80dp"
+                android:elevation="8dp"
+                app:pressedTranslationZ="8dp"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/deleteFabStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete_forever_red_a400_48dp"
+                android:layout_gravity="end|bottom"
+                android:elevation="8dp"
+                app:pressedTranslationZ="8dp"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+</ScrollView>

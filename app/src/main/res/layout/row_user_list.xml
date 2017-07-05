@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright By Noor Nabiul Alam Siddiqui  (c) 2017.
+  ~  www.fb.com/sazal.ns
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_mid"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toRightOf="@+id/image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/upozilaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintLeft_toRightOf="@+id/image"
+        app:layout_constraintRight_toLeftOf="@+id/unionTextView"/>
+
+    <TextView
+        android:id="@+id/unionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_small"
+        android:layout_marginTop="5dp"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintTop_toBottomOf="@id/nameTextView"
+        app:layout_constraintLeft_toRightOf="@+id/upozilaTextView"
+        app:layout_constraintRight_toLeftOf="@+id/wordTextView"/>
+
+    <TextView
+        android:id="@+id/wordTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pad_small"
+        android:layout_marginLeft="@dimen/pad_small"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintLeft_toRightOf="@+id/unionTextView"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

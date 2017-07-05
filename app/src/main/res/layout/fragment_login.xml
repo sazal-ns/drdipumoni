@@ -1,0 +1,71 @@
+<!--
+  ~ Copyright By Noor Nabiul Alam Siddiqui  (c) 2017.
+  ~  www.fb.com/sazal.ns
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.rtsoftbd.siddiqui.drDipuMoni.LoginFragment">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/headAppCompatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:textSize="@dimen/text_hi"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="sans-serif-condensed" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/com_margin"
+            app:hintTextAppearance="@android:style/TextAppearance.DeviceDefault.Large">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/userNameAppCompatEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="User Name"
+                android:inputType="textPersonName"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/com_margin"
+            app:hintTextAppearance="@android:style/TextAppearance.DeviceDefault.Large">
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/passwordAppCompatEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Password"
+                android:inputType="textPassword"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/loginAppCompatButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/login"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:onClick="onViewClicked"/>
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

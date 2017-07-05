@@ -1,0 +1,60 @@
+<!--
+  ~ Copyright By Noor Nabiul Alam Siddiqui  (c) 2017.
+  ~  www.fb.com/sazal.ns
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rtsoftbd.siddiqui.drDipuMoni.AboutFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/som"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/proCircleImageView"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            app:civ_border_width="5dp"
+            android:background="@android:color/transparent"
+            app:civ_border_color="@color/material_indigo_900"
+            app:civ_border_overlay="true"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/aboutHeadTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:textSize="30sp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/proCircleImageView" />
+
+        <TextView
+            android:id="@+id/aboutBodyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="15sp"
+            android:gravity="start"
+            android:textColor="@android:color/black"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aboutHeadTextView" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+</ScrollView>

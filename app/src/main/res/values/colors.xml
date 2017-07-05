@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+  ~  www.fb.com/sazal.ns
+  ~  ------------------------------------
+  ~    Name:     DipuMoni
+  ~    Created at:  7/5/17 5:28 PM
+  ~    Updated at: 6/7/17 5:11 AM
+  ~  ------------------------------------
+  -->
+
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#ff4081</color>
+
+    <color name="fb">#337AB7</color>
+    <color name="googlePlus">#EA4335</color>
+    <color name="twitter">#1DA1F2</color>
+</resources>

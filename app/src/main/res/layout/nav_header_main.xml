@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+  ~  www.fb.com/sazal.ns
+  ~  ------------------------------------
+  ~    Name:     DipuMoni
+  ~    Created at:  7/5/17 5:28 PM
+  ~    Updated at: 6/7/17 5:11 AM
+  ~  ------------------------------------
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@drawable/side_nav_bar"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:paddingTop="5dp"
+        app:civ_border_width="1dp"
+        android:elevation="8dp"
+        app:civ_border_color="@color/material_indigo_900"
+        app:civ_border_overlay="true"
+        android:src="@drawable/me"/>
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:text="Campaign"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+  ~  www.fb.com/sazal.ns
+  ~  ------------------------------------
+  ~    Name:     DipuMoni
+  ~    Created at:  7/5/17 5:28 PM
+  ~    Updated at: 6/7/17 12:18 PM
+  ~  ------------------------------------
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.rtsoftbd.siddiqui.drDipuMoni.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+</android.support.constraint.ConstraintLayout>

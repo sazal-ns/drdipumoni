@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+  ~  www.fb.com/sazal.ns
+  ~  ------------------------------------
+  ~    Name:     DipuMoni
+  ~    Created at:  7/5/17 5:28 PM
+  ~    Updated at: 6/21/17 3:51 AM
+  ~  ------------------------------------
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_sms"
+        android:title="@string/action_settings"/>
+
+    <item
+        android:id="@+id/action_email"
+        android:title="Send Email"/>
+
+    <item
+        android:id="@+id/action_status"
+        android:title="Add Status"/>
+
+    <item
+        android:id="@+id/action_edit_status"
+        android:title="Edit Status"/>
+
+   <!-- <item
+        android:id="@+id/action_add_dev"
+        android:title="Add Development Work"/>
+
+    <item
+        android:id="@+id/action_edit_dev"
+        android:title="Edit Development Work"/>-->
+
+    <item
+        android:id="@+id/action_add_member"
+        android:title="Add Voter"/>
+
+    <!--<item
+        android:id="@+id/action_edit_voter"
+        android:title="Edit Voter"/>-->
+
+    <item
+        android:id="@+id/action_about"
+        android:title="About" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:title="Log Out"/>
+
+</menu>

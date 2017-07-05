@@ -1,0 +1,21 @@
+<!--
+  ~ Copyright By Noor Nabiul Alam Siddiqui  (c) 2017.
+  ~  www.fb.com/sazal.ns
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    tools:context="com.rtsoftbd.siddiqui.drDipuMoni.AdminFragment">
+
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:id="@+id/userListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/material_grey_500"
+        android:dividerHeight="2dp"
+        android:listSelector="@color/material_blue_grey_50"/>
+
+</RelativeLayout>

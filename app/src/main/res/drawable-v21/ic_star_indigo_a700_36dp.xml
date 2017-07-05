@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+  ~  www.fb.com/sazal.ns
+  ~  ------------------------------------
+  ~    Name:     DipuMoni
+  ~    Created at:  7/5/17 5:28 PM
+  ~    Updated at: 6/7/17 5:11 AM
+  ~  ------------------------------------
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="36dp" android:viewportHeight="24.0" android:viewportWidth="24.0" android:width="36dp">
+    <path android:fillColor="#304FFE" android:pathData="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+</vector>
