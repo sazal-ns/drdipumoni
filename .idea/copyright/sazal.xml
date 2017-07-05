@@ -2,6 +2,6 @@
   <copyright>
     <option name="allowReplaceKeyword" value="www.fb.com/sazal.ns" />
     <option name="myName" value="sazal" />
-    <option name="notice" value="Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD&#10; www.fb.com/sazal.ns&#10; _______________________________________&#10;   Name:     &amp;#36;project.name        &#10;   Created at:  &amp;#36;today                 &#10;   Updated at: &amp;#36;file.lastModified&#10; ________________________________________" />
+    <option name="notice" value="Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD&#10;(C) &amp;#36;today&#10; www.fb.com/sazal.ns&#10; _______________________________________&#10;   Name:     &amp;#36;project.name        &#10;   Updated at: &amp;#36;file.lastModified&#10; ________________________________________" />
   </copyright>
 </component>
