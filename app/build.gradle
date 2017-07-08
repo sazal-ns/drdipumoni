@@ -1,11 +1,11 @@
 /*
  * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+ * (C) 7/8/17 3:16 PM
  *  www.fb.com/sazal.ns
- *  ------------------------------------
+ *  _______________________________________
  *    Name:     DipuMoni
- *    Created at:  7/5/17 5:28 PM
- *    Updated at: 6/20/17 11:47 AM
- *  ------------------------------------
+ *    Updated at: 7/6/17 12:05 PM
+ *  ________________________________________
  */
 
 apply plugin: 'com.android.application'
@@ -17,8 +17,8 @@ android {
         applicationId "com.rtsoftbd.siddiqui.drDipuMoni"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 3
-        versionName "2.2"
+        versionCode 4
+        versionName "3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

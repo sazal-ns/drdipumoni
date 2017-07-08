@@ -1,19 +1,22 @@
 /*
- * Copyright By Noor Nabiul Alam Siddiqui  (c) 2017.
+ * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+ * (C) 7/8/17 3:16 PM
  *  www.fb.com/sazal.ns
+ *  _______________________________________
+ *    Name:     DipuMoni
+ *    Updated at: 7/6/17 1:37 PM
+ *  ________________________________________
  */
 
 package com.rtsoftbd.siddiqui.drDipuMoni.model;
 
 import java.io.Serializable;
 
-/**
- * Created by RTsoftBD_Siddiqui on 2017-06-04.
- */
+
 
 public class Status implements Serializable {
-    int id, is_active, upzila_id, union_id;
-    String status, _date;
+   private int id, is_active, upzila_id, union_id;
+    private String status, _date;
 
     public Status() {
     }

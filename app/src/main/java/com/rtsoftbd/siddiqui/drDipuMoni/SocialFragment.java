@@ -1,6 +1,11 @@
 /*
- * Copyright By Noor Nabiul Alam Siddiqui  (c) 2017.
+ * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+ * (C) 7/8/17 3:16 PM
  *  www.fb.com/sazal.ns
+ *  _______________________________________
+ *    Name:     DipuMoni
+ *    Updated at: 7/6/17 4:21 PM
+ *  ________________________________________
  */
 
 package com.rtsoftbd.siddiqui.drDipuMoni;
