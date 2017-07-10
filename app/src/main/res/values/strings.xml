@@ -1,10 +1,10 @@
 <!--
   ~ Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+  ~ (C) 7/10/17 5:51 PM
   ~  www.fb.com/sazal.ns
   ~  _______________________________________
   ~    Name:     DipuMoni
-  ~    Created at:  7/5/17 5:46 PM
-  ~    Updated at: 7/5/17 5:46 PM
+  ~    Updated at: 7/10/17 1:53 PM
   ~  ________________________________________
   -->
 
@@ -97,6 +97,8 @@
     <string name="copyright">Developed &amp; Copyright</string>
     <string name="con">By  RTSoftBD.</string>
     <string name="designation_name">Designation</string>
+
+    <string name="no_internet">No Active Internet. Showing last synchronized data</string>
 
     <array name="union_array">
         <item>Chitoshi(E)</item>

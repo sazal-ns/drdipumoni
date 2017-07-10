@@ -1,11 +1,11 @@
 
 /*
  * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
- * (C) 7/8/17 3:16 PM
+ * (C) 7/10/17 5:51 PM
  *  www.fb.com/sazal.ns
  *  _______________________________________
  *    Name:     DipuMoni
- *    Updated at: 7/8/17 3:01 PM
+ *    Updated at: 7/10/17 5:44 PM
  *  ________________________________________
  */
 
@@ -16,11 +16,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.AboutSocial;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.Resume;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.Status;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +41,10 @@ public class LocalDB extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "MSDipuMoniDB";
 
     /*Tables*/
-    private static final String TABLE_MANAGE = "manage";
-    private static final String TABLE_STATUS = "status";
-    private static final String TABLE_POLITICAL_RESUME = "political_resume";
-    private static final String TABLE_ACHIEVEMENT = "achievement";
+    public static final String TABLE_MANAGE = "manage";
+    public static final String TABLE_STATUS = "status";
+    public static final String TABLE_POLITICAL_RESUME = "political_resume";
+    public static final String TABLE_ACHIEVEMENT = "achievement";
 
     /*Common Key*/
     private static final String KEY_ID = "_id";
@@ -80,7 +89,7 @@ public class LocalDB extends SQLiteOpenHelper {
             KEY_SECTION_ABOUT_HEADER + " TEXT,"+
             KEY_SELECTION_ABOUT_DATA + " TEXT,"+
             KEY_SELECTION_ABOUT_LINK + " TEXT,"+
-            KEY_SELECTION_ABOUT_PICTURE + " TEXT,"+
+            KEY_SELECTION_ABOUT_PICTURE + " BLOB,"+
             KEY_SOCIAL_LINK1_NAME + " TEXT,"+
             KEY_SOCIAL_LINK1_URL + " TEXT,"+
             KEY_SOCIAL_LINK2_NAME + " TEXT,"+
@@ -102,13 +111,13 @@ public class LocalDB extends SQLiteOpenHelper {
             KEY_RESUME_TITLE + " TEXT,"+
             KEY_RESUME_DETAILS + " TEXT,"+
             KEY_RESUME_PLACE + " TEXT,"+
-            KEY_RESUME_PICTURE_NAME + " TEXT )";
+            KEY_RESUME_PICTURE_NAME + " BLOB )";
 
     private static final String  CREATE_TABLE_ACHIEVEMENT = "CREATE TABLE " + TABLE_ACHIEVEMENT + " ("+
             KEY_ID + " INTEGER PRIMARY KEY," +
             KEY_ACHIEVEMENT_DETAILS +  " TEXT,"+
             KEY_ACHIEVEMENT_TITLE + " TEXT," +
-            KEY_ACHIEVEMENT_LOGO + " TEXT )";
+            KEY_ACHIEVEMENT_LOGO + " BLOB )";
 
     private ContentValues manageContentValues(){
         ContentValues values = new ContentValues();
@@ -117,7 +126,7 @@ public class LocalDB extends SQLiteOpenHelper {
         values.put(KEY_SECTION_ABOUT_HEADER, AboutSocial.getSectorAboutHeader());
         values.put(KEY_SELECTION_ABOUT_DATA, AboutSocial.getSectionAboutData());
         values.put(KEY_SELECTION_ABOUT_LINK, AboutSocial.getSectionAboutLink());
-        values.put(KEY_SELECTION_ABOUT_PICTURE, AboutSocial.getSectionAboutPic());
+        values.put(KEY_SELECTION_ABOUT_PICTURE, AboutSocial.getImage());
         values.put(KEY_SOCIAL_LINK1_NAME,AboutSocial.getSlink1Name());
         values.put(KEY_SOCIAL_LINK1_URL, AboutSocial.getSlink1Link());
         values.put(KEY_SOCIAL_LINK2_NAME, AboutSocial.getSlink2Name());
@@ -138,12 +147,14 @@ public class LocalDB extends SQLiteOpenHelper {
         return values;
     }
 
-    private ContentValues resumeAndAchievementContentValues(Resume resume){
+    private ContentValues resumeAndAchievementContentValues(Resume resume, int who){
+        Bitmap bitmap = getBitmapFromURL("http://maxpixel.freegreatpicture.com/static/photo/1x/Graduate-Graduation-Cap-Graduation-Education-Icon-1719741.png");
+
         ContentValues values = new ContentValues();
         values.put(KEY_RESUME_DETAILS, resume.getDetails());
         values.put(KEY_RESUME_TITLE, resume.getTitle());
         values.put(KEY_RESUME_PLACE, resume.getPlace());
-        values.put(KEY_RESUME_PICTURE_NAME, resume.getPictureString());
+        values.put(KEY_RESUME_PICTURE_NAME, convertImage(bitmap));
         return values;
     }
 
@@ -167,7 +178,7 @@ public class LocalDB extends SQLiteOpenHelper {
                 AboutSocial.setSectorAboutHeader(c.getString(c.getColumnIndex(KEY_SECTION_ABOUT_HEADER)));
                 AboutSocial.setSectionAboutData(c.getString(c.getColumnIndex(KEY_SELECTION_ABOUT_DATA)));
                 AboutSocial.setSectionAboutLink(c.getString(c.getColumnIndex(KEY_SELECTION_ABOUT_LINK)));
-                AboutSocial.setSectionAboutPic(c.getString(c.getColumnIndex(KEY_SELECTION_ABOUT_PICTURE)));
+                AboutSocial.setImage(c.getBlob(c.getColumnIndex(KEY_SELECTION_ABOUT_PICTURE)));
                 AboutSocial.setSlink1Name(c.getString(c.getColumnIndex(KEY_SOCIAL_LINK1_NAME)));
                 AboutSocial.setSlink1Link(c.getString(c.getColumnIndex(KEY_SOCIAL_LINK1_URL)));
                 AboutSocial.setSlink2Name(c.getString(c.getColumnIndex(KEY_SOCIAL_LINK2_NAME)));
@@ -180,7 +191,6 @@ public class LocalDB extends SQLiteOpenHelper {
         }
 
         c.close();
-        closeDB();
     }
 
     public long insertStatus(Status status){
@@ -211,18 +221,17 @@ public class LocalDB extends SQLiteOpenHelper {
         }
 
         c.close();
-        closeDB();
         return statuses;
     }
 
-    public long insertPoliticalResume(Resume resume){
+    public long insertPoliticalResume(Resume resume, int who){
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.insert(TABLE_POLITICAL_RESUME, null, resumeAndAchievementContentValues(resume));
+        return db.insert(TABLE_POLITICAL_RESUME, null, resumeAndAchievementContentValues(resume, who));
     }
 
-    public long updatePoliticalResume(Resume resume, int id){
+    public long updatePoliticalResume(Resume resume, int id, int who){
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.update(TABLE_POLITICAL_RESUME, resumeAndAchievementContentValues(resume), KEY_ID + id, null);
+        return db.update(TABLE_POLITICAL_RESUME, resumeAndAchievementContentValues(resume, who), KEY_ID + id, null);
     }
 
     public List<Resume> getAllPoliticalResume(){
@@ -231,13 +240,13 @@ public class LocalDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(queryAll(TABLE_POLITICAL_RESUME), null);
 
-        if (c.moveToFirst()){
+        if (c.moveToFirst() && c.getCount()>0){
             do {
                 Resume resume = new Resume();
                 resume.setDetails(c.getString(c.getColumnIndex(KEY_RESUME_DETAILS)));
                 resume.setTitle(c.getString(c.getColumnIndex(KEY_RESUME_TITLE)));
                 resume.setPlace(c.getString(c.getColumnIndex(KEY_RESUME_PLACE)));
-                resume.setPictureString(c.getString(c.getColumnIndex(KEY_RESUME_PICTURE_NAME)));
+                resume.setPicture(c.getBlob(c.getColumnIndex(KEY_RESUME_PICTURE_NAME)));
                 resumes.add(resume);
             }while (c.moveToNext());
         }
@@ -247,15 +256,15 @@ public class LocalDB extends SQLiteOpenHelper {
         return resumes;
     }
 
-    public long insertAchievement(Resume resume){
+    public long insertAchievement(Resume resume, int who){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        return db.insert(TABLE_ACHIEVEMENT, null, resumeAndAchievementContentValues(resume));
+        return db.insert(TABLE_ACHIEVEMENT, null, resumeAndAchievementContentValues(resume, who));
     }
 
-    public long updateAchievement (Resume resume, int id){
+    public long updateAchievement (Resume resume, int id, int who){
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.update(TABLE_ACHIEVEMENT, resumeAndAchievementContentValues(resume), KEY_ID + id, null);
+        return db.update(TABLE_ACHIEVEMENT, resumeAndAchievementContentValues(resume, who), KEY_ID + id, null);
     }
 
     public List<Resume> getAllAchievement(){
@@ -268,7 +277,7 @@ public class LocalDB extends SQLiteOpenHelper {
                 Resume resume = new Resume();
                 resume.setTitle(c.getString(c.getColumnIndex(KEY_ACHIEVEMENT_TITLE)));
                 resume.setDetails(c.getString(c.getColumnIndex(KEY_ACHIEVEMENT_DETAILS)));
-                resume.setPictureString(c.getString(c.getColumnIndex(KEY_ACHIEVEMENT_LOGO)));
+                resume.setPicture(c.getBlob(c.getColumnIndex(KEY_ACHIEVEMENT_LOGO)));
                 resumes.add(resume);
             }while (c.moveToNext());
         }
@@ -287,6 +296,7 @@ public class LocalDB extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_MANAGE);
         db.execSQL(CREATE_TABLE_STATUS);
         db.execSQL(CREATE_TABLE_POLITICAL_RESUME);
+        db.execSQL(CREATE_TABLE_ACHIEVEMENT);
     }
 
     @Override
@@ -307,5 +317,26 @@ public class LocalDB extends SQLiteOpenHelper {
 
     private String queryAll(String tableName){
         return "SELECT * FROM " + tableName;
+    }
+
+
+    private static byte[] convertImage(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            return BitmapFactory.decodeStream(input);
+        } catch (IOException e) {
+            Log.e(TAG, "getBitmapFromURL: ",e );
+            return null;
+        }
     }
 }

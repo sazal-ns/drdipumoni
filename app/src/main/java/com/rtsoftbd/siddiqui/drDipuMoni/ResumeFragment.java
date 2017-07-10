@@ -1,6 +1,11 @@
 /*
- * Copyright By Noor Nabiul Alam Siddiqui  (c) 2017.
+ * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+ * (C) 7/10/17 5:51 PM
  *  www.fb.com/sazal.ns
+ *  _______________________________________
+ *    Name:     DipuMoni
+ *    Updated at: 7/10/17 5:38 PM
+ *  ________________________________________
  */
 
 package com.rtsoftbd.siddiqui.drDipuMoni;
@@ -8,6 +13,7 @@ package com.rtsoftbd.siddiqui.drDipuMoni;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -24,6 +30,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.rtsoftbd.siddiqui.drDipuMoni.customeAdapter.CustomListAdapter;
 import com.rtsoftbd.siddiqui.drDipuMoni.helper.ApiUrl;
+import com.rtsoftbd.siddiqui.drDipuMoni.helper.LocalDB;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.Resume;
 
 import org.json.JSONException;
@@ -55,6 +62,7 @@ public class ResumeFragment extends Fragment {
     @BindView(R.id.list) ListView ms_List;
     private List<Resume>  resumes = new ArrayList<>();
     private CustomListAdapter listAdapter;
+    LocalDB db;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -97,6 +105,7 @@ public class ResumeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_education, container, false);
         ButterKnife.bind(this, view);
+        db = new LocalDB(getActivity().getApplicationContext());
 
         listAdapter = new CustomListAdapter(getActivity(), resumes, 1);
         ms_List.setAdapter(listAdapter);
@@ -111,6 +120,7 @@ public class ResumeFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
+                    db.deleteAll(LocalDB.TABLE_POLITICAL_RESUME);
                     JSONObject jsonObject = new JSONObject(response);
 
                     Iterator keys = jsonObject.keys();
@@ -127,6 +137,7 @@ public class ResumeFragment extends Fragment {
                             resume.setPictureString(object.getString("picture"));
 
                             resumes.add(resume);
+                            db.insertPoliticalResume(resume, 1);
 
                         }
                     }
@@ -141,10 +152,9 @@ public class ResumeFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error",error.toString());
                 if (error.toString().contains("NoConnectionError")){
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Error")
-                            .setMessage("No Active Internet Connection :(")
-                            .show();
+                    Snackbar.make(getView(),"No Active Internet! Showing last synchronized data", 5000).show();
+                    resumes.addAll(db.getAllPoliticalResume());
+                    listAdapter.notifyDataSetChanged();
 
                 }
             }

@@ -1,10 +1,10 @@
 /*
  * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
- * (C) 7/8/17 3:16 PM
+ * (C) 7/10/17 5:51 PM
  *  www.fb.com/sazal.ns
  *  _______________________________________
  *    Name:     DipuMoni
- *    Updated at: 7/6/17 4:21 PM
+ *    Updated at: 7/10/17 4:32 PM
  *  ________________________________________
  */
 
@@ -18,7 +18,11 @@ import android.graphics.Bitmap;
 
 public  class Resume {
    private String title, details, place, pictureString;
-   private Bitmap picture;
+   private byte[] picture;
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
 
     public Resume() {
     }
@@ -30,14 +34,14 @@ public  class Resume {
         this.pictureString = pictureString;
     }
 
-    public Resume(String title, String details, String place, Bitmap picture) {
+    public Resume(String title, String details, String place, byte[] picture) {
         this.title = title;
         this.details = details;
         this.place = place;
         this.picture = picture;
     }
 
-    public Resume(String title, String details, String place, String pictureString, Bitmap picture) {
+    public Resume(String title, String details, String place, String pictureString, byte[] picture) {
         this.title = title;
         this.details = details;
         this.place = place;
@@ -77,11 +81,4 @@ public  class Resume {
         this.pictureString = pictureString;
     }
 
-    public Bitmap getPicture() {
-        return picture;
-    }
-
-    public void setPicture(Bitmap picture) {
-        this.picture = picture;
-    }
 }

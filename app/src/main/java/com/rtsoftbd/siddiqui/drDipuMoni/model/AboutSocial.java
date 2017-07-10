@@ -1,14 +1,16 @@
 /*
  * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+ * (C) 7/10/17 5:51 PM
  *  www.fb.com/sazal.ns
- *  ------------------------------------
+ *  _______________________________________
  *    Name:     DipuMoni
- *    Created at:  7/5/17 5:28 PM
- *    Updated at: 6/7/17 12:18 PM
- *  ------------------------------------
+ *    Updated at: 7/10/17 11:37 AM
+ *  ________________________________________
  */
 
 package com.rtsoftbd.siddiqui.drDipuMoni.model;
+
+import android.graphics.Bitmap;
 
 public class AboutSocial{
 	public static String slink2Name;
@@ -26,6 +28,15 @@ public class AboutSocial{
 	public static String logo;
 	public static String slink3Name;
 	public static String adminEmail;
+	public static byte[] image;
+
+	public static byte[] getImage() {
+		return image;
+	}
+
+	public static void setImage(byte[] image) {
+		AboutSocial.image = image;
+	}
 
 	public static String getAdminEmail() {
 		return adminEmail;

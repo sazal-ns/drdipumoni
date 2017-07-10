@@ -1,6 +1,11 @@
 /*
- * Copyright By Noor Nabiul Alam Siddiqui  (c) 2017.
+ * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+ * (C) 7/10/17 5:51 PM
  *  www.fb.com/sazal.ns
+ *  _______________________________________
+ *    Name:     DipuMoni
+ *    Updated at: 7/10/17 4:21 PM
+ *  ________________________________________
  */
 
 package com.rtsoftbd.siddiqui.drDipuMoni;
@@ -13,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -39,6 +45,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.rtsoftbd.siddiqui.drDipuMoni.customeAdapter.StatusAdapter;
 import com.rtsoftbd.siddiqui.drDipuMoni.helper.ApiUrl;
 import com.rtsoftbd.siddiqui.drDipuMoni.helper.AppController;
+import com.rtsoftbd.siddiqui.drDipuMoni.helper.LocalDB;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.Status;
 
 import org.json.JSONException;
@@ -78,6 +85,7 @@ public class StatusFragment extends Fragment {
     private StatusAdapter statusAdapter;
     private List<Status> statusList = new ArrayList<>();
     private Boolean isLogin;
+    private LocalDB db;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -123,6 +131,8 @@ public class StatusFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_status, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        db = new LocalDB(getActivity().getApplicationContext());
 
         final SharedPreferences preferences = getContext().getSharedPreferences("LOGIN_MS", Context.MODE_PRIVATE);
         isLogin = preferences.getBoolean("login",false);
@@ -256,6 +266,7 @@ public class StatusFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
+                    db.deleteAll(LocalDB.TABLE_STATUS);
                     JSONObject jsonObject = new JSONObject(response);
 
                     Iterator keys = jsonObject.keys();
@@ -272,6 +283,7 @@ public class StatusFragment extends Fragment {
                             status.set_date(object.getString("statustime"));
 
                             statusList.add(status);
+                            db.insertStatus(status);
                         }
                     }
                     statusAdapter.notifyDataSetChanged();
@@ -284,10 +296,11 @@ public class StatusFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.toString());
                 if (error.toString().contains("NoConnectionError")) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Error")
-                            .setMessage("No Active Internet Connection :(")
-                            .show();
+                  Snackbar.make(getView(),"No Active Internet! Showing last synchronized data", 5000).show();
+                    statusList.addAll(db.getAllStatus());
+                    Log.d("test",statusList.get(1).getStatus());
+                    statusAdapter.notifyDataSetChanged();
+
                 }
             }
         }) {

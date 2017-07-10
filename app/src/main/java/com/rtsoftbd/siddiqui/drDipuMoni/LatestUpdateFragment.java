@@ -1,6 +1,11 @@
 /*
- * Copyright By Noor Nabiul Alam Siddiqui  (c) 2017.
+ * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+ * (C) 7/10/17 5:51 PM
  *  www.fb.com/sazal.ns
+ *  _______________________________________
+ *    Name:     DipuMoni
+ *    Updated at: 7/10/17 4:23 PM
+ *  ________________________________________
  */
 
 package com.rtsoftbd.siddiqui.drDipuMoni;
@@ -8,6 +13,7 @@ package com.rtsoftbd.siddiqui.drDipuMoni;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -24,6 +30,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.rtsoftbd.siddiqui.drDipuMoni.customeAdapter.CustomListAdapterLatest;
 import com.rtsoftbd.siddiqui.drDipuMoni.helper.ApiUrl;
+import com.rtsoftbd.siddiqui.drDipuMoni.helper.LocalDB;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.Resume;
 
 import org.json.JSONException;
@@ -56,6 +63,7 @@ public class LatestUpdateFragment extends Fragment {
     @BindView(R.id.listLatest) ListView ms_List;
     private List<Resume> resumes = new ArrayList<>();
     private CustomListAdapterLatest listAdapter;
+    private LocalDB db;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -99,6 +107,7 @@ public class LatestUpdateFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_latest_update, container, false);
         ButterKnife.bind(this, view);
+        db = new LocalDB(getActivity().getApplicationContext());
 
         listAdapter = new CustomListAdapterLatest(getActivity(), resumes);
         ms_List.setAdapter(listAdapter);
@@ -149,10 +158,7 @@ public class LatestUpdateFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.toString());
                 if (error.toString().contains("NoConnectionError")){
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Error")
-                            .setMessage("No Active Internet Connection :(")
-                            .show();
+                    Snackbar.make(getView(),"No Active Internet! Showing last synchronized data", 5000).show();
 
                 }
             }
