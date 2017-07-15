@@ -1,10 +1,10 @@
 /*
  * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
- * (C) 7/15/17 4:38 PM
+ * (C) 7/15/17 6:31 PM
  *  www.fb.com/sazal.ns
  *  _______________________________________
  *    Name:     DipuMoni
- *    Updated at: 7/15/17 3:27 PM
+ *    Updated at: 7/15/17 5:18 PM
  *  ________________________________________
  */
 
@@ -37,7 +37,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
       //  super.onTokenRefresh();
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, "Refreshed token: " + refreshedToken);
+        Log.e(TAG, "Refreshed token: " + refreshedToken);
         storeRegIdInPref(refreshedToken);
         sendRegistrationToServer(refreshedToken);
 

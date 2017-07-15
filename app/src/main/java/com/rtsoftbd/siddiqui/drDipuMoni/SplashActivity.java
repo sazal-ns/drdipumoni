@@ -1,16 +1,19 @@
 /*
  * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
- * (C) 7/15/17 4:38 PM
+ * (C) 7/15/17 6:31 PM
  *  www.fb.com/sazal.ns
  *  _______________________________________
  *    Name:     DipuMoni
- *    Updated at: 7/13/17 6:03 PM
+ *    Updated at: 7/15/17 6:01 PM
  *  ________________________________________
  */
 
 package com.rtsoftbd.siddiqui.drDipuMoni;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -18,18 +21,24 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.rtsoftbd.siddiqui.drDipuMoni.helper.ApiUrl;
 import com.rtsoftbd.siddiqui.drDipuMoni.helper.AppController;
+import com.rtsoftbd.siddiqui.drDipuMoni.helper.Config;
 import com.rtsoftbd.siddiqui.drDipuMoni.helper.LocalDB;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.AboutSocial;
 
@@ -53,6 +62,11 @@ public class SplashActivity extends AppCompatActivity {
     final static private String PREF_KEY_SHORTCUT_ADDED = "PREF_KEY_SHORTCUT_ADDED";
     @BindView(R.id.progressBar) ProgressBar ms_ProgressBar;
 
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private TextView txtRegId, txtMessage;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +74,78 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
 
+
+        txtRegId = (TextView) findViewById(R.id.txt_reg_id);
+        txtMessage = (TextView) findViewById(R.id.txt_push_message);
+
+        FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
+
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                // checking for type intent filter
+                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
+                    // gcm successfully registered
+                    // now subscribe to `global` topic to receive app wide notifications
+                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
+
+                    displayFirebaseRegId();
+
+                } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
+                    // new push notification is received
+
+                    String message = intent.getStringExtra("message");
+
+                    Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
+
+                    txtMessage.setText(message);
+                }
+            }
+        };
+
+        displayFirebaseRegId();
+
+
         addShortCut();
 
         aboutDate date = new aboutDate();
         date.execute();
+    }
+
+    private void displayFirebaseRegId() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
+        String regId = pref.getString("regId", null);
+
+        Log.e("REG", "Firebase reg id: " + regId);
+
+        if (!TextUtils.isEmpty(regId))
+            txtRegId.setText("Firebase Reg Id: " + regId);
+        else
+            txtRegId.setText("Firebase Reg Id is not received yet!");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // register GCM registration complete receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Config.REGISTRATION_COMPLETE));
+
+        // register new push message receiver
+        // by doing this, the activity will be notified each time a new message arrives
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Config.PUSH_NOTIFICATION));
+
+        // clear the notification area when the app is opened
+        NotificationUtils.clearNotifications(getApplicationContext());
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        super.onPause();
     }
 
     private class aboutDate extends AsyncTask<Void, Void, String> {
