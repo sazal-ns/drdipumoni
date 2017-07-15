@@ -1,11 +1,11 @@
 
 /*
  * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
- * (C) 7/10/17 5:51 PM
+ * (C) 7/15/17 4:38 PM
  *  www.fb.com/sazal.ns
  *  _______________________________________
  *    Name:     DipuMoni
- *    Updated at: 7/10/17 5:44 PM
+ *    Updated at: 7/15/17 1:16 PM
  *  ________________________________________
  */
 
@@ -22,6 +22,8 @@ import android.util.Log;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.AboutSocial;
+import com.rtsoftbd.siddiqui.drDipuMoni.model.DevUnion;
+import com.rtsoftbd.siddiqui.drDipuMoni.model.DevUpozila;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.Resume;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.Status;
 
@@ -45,6 +47,11 @@ public class LocalDB extends SQLiteOpenHelper {
     public static final String TABLE_STATUS = "status";
     public static final String TABLE_POLITICAL_RESUME = "political_resume";
     public static final String TABLE_ACHIEVEMENT = "achievement";
+    public static final String TABLE_LATEST_UPDATE = "latestUpdate";
+    public static final String TABLE_EDUCATION = "education";
+    public static final String TABLE_UPOZILA = "upozila";
+    public static final String TABLE_UNION ="ms_union";
+    public static final String TABLE_WORD = "ms_word";
 
     /*Common Key*/
     private static final String KEY_ID = "_id";
@@ -80,6 +87,13 @@ public class LocalDB extends SQLiteOpenHelper {
     private static final String KEY_ACHIEVEMENT_DETAILS = "achievement_details";
     private static final String KEY_ACHIEVEMENT_LOGO = "achievement_logo";
 
+    /*Upozila KEYS*/
+    private static final String KEY_UPOZILA_NAME = "upozila_name";
+    /*union keys*/
+    private static final String KEY_UNION_NAME = "union_name";
+    private static final String KEY_UPOZILA_ID = "upozila_id";
+
+
     /*CREATING TABLE*/
     /*QUERY: CREATE MANAGE TABLE*/
     /*###ADD PICTURE TO DB REMAINING######*/
@@ -111,13 +125,40 @@ public class LocalDB extends SQLiteOpenHelper {
             KEY_RESUME_TITLE + " TEXT,"+
             KEY_RESUME_DETAILS + " TEXT,"+
             KEY_RESUME_PLACE + " TEXT,"+
-            KEY_RESUME_PICTURE_NAME + " BLOB )";
+            KEY_RESUME_PICTURE_NAME + " TEXT )";
 
     private static final String  CREATE_TABLE_ACHIEVEMENT = "CREATE TABLE " + TABLE_ACHIEVEMENT + " ("+
             KEY_ID + " INTEGER PRIMARY KEY," +
-            KEY_ACHIEVEMENT_DETAILS +  " TEXT,"+
-            KEY_ACHIEVEMENT_TITLE + " TEXT," +
-            KEY_ACHIEVEMENT_LOGO + " BLOB )";
+            KEY_RESUME_TITLE + " TEXT,"+
+            KEY_RESUME_DETAILS + " TEXT,"+
+            KEY_RESUME_PLACE + " TEXT,"+
+            KEY_RESUME_PICTURE_NAME + " TEXT )";
+
+    private static final String  CREATE_TABLE_LATEST_UPDATE = "CREATE TABLE " + TABLE_LATEST_UPDATE + " ("+
+            KEY_ID + " INTEGER PRIMARY KEY," +
+            KEY_RESUME_TITLE + " TEXT,"+
+            KEY_RESUME_DETAILS + " TEXT,"+
+            KEY_RESUME_PLACE + " TEXT,"+
+            KEY_RESUME_PICTURE_NAME + " TEXT )";
+
+
+    private static final String  CREATE_TABLE_EDUCATION = "CREATE TABLE " + TABLE_EDUCATION + " ("+
+            KEY_ID + " INTEGER PRIMARY KEY," +
+            KEY_RESUME_TITLE + " TEXT,"+
+            KEY_RESUME_DETAILS + " TEXT,"+
+            KEY_RESUME_PLACE + " TEXT,"+
+            KEY_RESUME_PICTURE_NAME + " TEXT )";
+
+    private static final String CREATE_TABLE_UPOZILA = "CREATE TABLE " + TABLE_UPOZILA + " ("+
+            KEY_ID + " INTEGER PRIMARY KEY,"+
+            KEY_UPOZILA_NAME + " TEXT )";
+
+
+    private static final String CREATE_TABLE_UNION = "CREATE TABLE " + TABLE_UNION + " ("+
+            KEY_ID + " INTEGER PRIMARY KEY,"+
+            KEY_UNION_NAME + " TEXT,"+
+            KEY_UPOZILA_ID + " INTEGER )";
+
 
     private ContentValues manageContentValues(){
         ContentValues values = new ContentValues();
@@ -148,13 +189,28 @@ public class LocalDB extends SQLiteOpenHelper {
     }
 
     private ContentValues resumeAndAchievementContentValues(Resume resume, int who){
-        Bitmap bitmap = getBitmapFromURL("http://maxpixel.freegreatpicture.com/static/photo/1x/Graduate-Graduation-Cap-Graduation-Education-Icon-1719741.png");
-
+        /*Bitmap bitmap = getBitmapFromURL("http://maxpixel.freegreatpicture.com/static/photo/1x/Graduate-Graduation-Cap-Graduation-Education-Icon-1719741.png");
+*/
         ContentValues values = new ContentValues();
         values.put(KEY_RESUME_DETAILS, resume.getDetails());
         values.put(KEY_RESUME_TITLE, resume.getTitle());
         values.put(KEY_RESUME_PLACE, resume.getPlace());
-        values.put(KEY_RESUME_PICTURE_NAME, convertImage(bitmap));
+        //values.put(KEY_RESUME_PICTURE_NAME, convertImage(bitmap));
+        return values;
+    }
+
+    private ContentValues upozila (DevUpozila devUpozila){
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_UPOZILA_NAME, devUpozila.getUpozilaName());
+        return values;
+    }
+
+    private ContentValues unionContentValues (DevUnion devUnion){
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_UNION_NAME, devUnion.getUnionName());
+        values.put(KEY_UPOZILA_ID, devUnion.getDevUpozilaID());
         return values;
     }
 
@@ -246,7 +302,7 @@ public class LocalDB extends SQLiteOpenHelper {
                 resume.setDetails(c.getString(c.getColumnIndex(KEY_RESUME_DETAILS)));
                 resume.setTitle(c.getString(c.getColumnIndex(KEY_RESUME_TITLE)));
                 resume.setPlace(c.getString(c.getColumnIndex(KEY_RESUME_PLACE)));
-                resume.setPicture(c.getBlob(c.getColumnIndex(KEY_RESUME_PICTURE_NAME)));
+                //resume.setPicture(c.getBlob(c.getColumnIndex(KEY_RESUME_PICTURE_NAME)));
                 resumes.add(resume);
             }while (c.moveToNext());
         }
@@ -275,9 +331,9 @@ public class LocalDB extends SQLiteOpenHelper {
         if (c.moveToFirst()){
             do {
                 Resume resume = new Resume();
-                resume.setTitle(c.getString(c.getColumnIndex(KEY_ACHIEVEMENT_TITLE)));
-                resume.setDetails(c.getString(c.getColumnIndex(KEY_ACHIEVEMENT_DETAILS)));
-                resume.setPicture(c.getBlob(c.getColumnIndex(KEY_ACHIEVEMENT_LOGO)));
+                resume.setTitle(c.getString(c.getColumnIndex(KEY_RESUME_TITLE)));
+                resume.setDetails(c.getString(c.getColumnIndex(KEY_RESUME_DETAILS)));
+                ///resume.setPicture(c.getBlob(c.getColumnIndex(KEY_ACHIEVEMENT_LOGO)));
                 resumes.add(resume);
             }while (c.moveToNext());
         }
@@ -285,6 +341,105 @@ public class LocalDB extends SQLiteOpenHelper {
         c.close();
         closeDB();
         return resumes;
+    }
+
+    public long insertLatestUpdate(Resume resume, int who){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.insert(TABLE_LATEST_UPDATE, null, resumeAndAchievementContentValues(resume, who));
+    }
+
+    public List<Resume> getAllLatestUpdate(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Resume> resumes = new ArrayList<>();
+        Cursor c = db.rawQuery(queryAll(TABLE_LATEST_UPDATE), null);
+
+        if (c.moveToFirst()){
+            do {
+                Resume resume = new Resume();
+                resume.setTitle(c.getString(c.getColumnIndex(KEY_RESUME_TITLE)));
+                resume.setDetails(c.getString(c.getColumnIndex(KEY_RESUME_DETAILS)));
+                ///resume.setPicture(c.getBlob(c.getColumnIndex(KEY_ACHIEVEMENT_LOGO)));
+                resumes.add(resume);
+            }while (c.moveToNext());
+        }
+
+        c.close();
+        closeDB();
+        return resumes;
+    }
+
+    public long insertEducation(Resume resume, int who){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.insert(TABLE_EDUCATION, null, resumeAndAchievementContentValues(resume, who));
+    }
+
+    public List<Resume> getAllEducation(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Resume> resumes = new ArrayList<>();
+        Cursor c = db.rawQuery(queryAll(TABLE_EDUCATION), null);
+
+        if (c.moveToFirst()){
+            do {
+                Resume resume = new Resume();
+                resume.setTitle(c.getString(c.getColumnIndex(KEY_RESUME_TITLE)));
+                resume.setDetails(c.getString(c.getColumnIndex(KEY_RESUME_DETAILS)));
+                ///resume.setPicture(c.getBlob(c.getColumnIndex(KEY_ACHIEVEMENT_LOGO)));
+                resumes.add(resume);
+            }while (c.moveToNext());
+        }
+
+        c.close();
+        closeDB();
+        return resumes;
+    }
+
+    public long insertUpozila (DevUpozila devUpozila){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.insert(TABLE_UPOZILA, null, upozila(devUpozila));
+    }
+
+    public List<DevUpozila> getUpozila(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<DevUpozila>  devUpozilas = new ArrayList<>();
+        Cursor c = db.rawQuery(queryAll(TABLE_UPOZILA), null);
+
+        if (c.moveToFirst()){
+            do {
+                DevUpozila devUpozila = new DevUpozila();
+                devUpozila.setUpozilaID(c.getInt(c.getColumnIndex(KEY_ID)));
+                devUpozila.setUpozilaName(c.getString(c.getColumnIndex(KEY_UPOZILA_NAME)));
+                 devUpozilas.add(devUpozila);
+            }while (c.moveToNext());
+        }
+        c.close();
+        closeDB();
+        return devUpozilas;
+    }
+
+    public long insertUnion (DevUnion devUnion){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.insert(TABLE_UNION, null, unionContentValues(devUnion));
+    }
+
+    public List<DevUnion> getAllUnion(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<DevUnion>  devUnions = new ArrayList<>();
+        Cursor c = db.rawQuery(queryAll(TABLE_UNION), null);
+
+        if (c.moveToFirst()){
+            do {
+                DevUnion devUnion = new DevUnion();
+                devUnion.setUnionID(c.getInt(c.getColumnIndex(KEY_ID)));
+                devUnion.setUnionName(c.getString(c.getColumnIndex(KEY_UNION_NAME)));
+                devUnion.setDevUpozilaID(c.getInt(c.getColumnIndex(KEY_UPOZILA_ID)));
+                devUnions.add(devUnion);
+            }while (c.moveToNext());
+        }
+        c.close();
+        closeDB();
+        return devUnions;
     }
 
     public LocalDB(Context context) {
@@ -297,6 +452,10 @@ public class LocalDB extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_STATUS);
         db.execSQL(CREATE_TABLE_POLITICAL_RESUME);
         db.execSQL(CREATE_TABLE_ACHIEVEMENT);
+        db.execSQL(CREATE_TABLE_EDUCATION);
+        db.execSQL(CREATE_TABLE_UPOZILA);
+        db.execSQL(CREATE_TABLE_LATEST_UPDATE);
+        db.execSQL(CREATE_TABLE_UNION);
     }
 
     @Override

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+  ~ (C) 7/15/17 4:38 PM
   ~  www.fb.com/sazal.ns
   ~  _______________________________________
   ~    Name:     DipuMoni
-  ~    Created at:  7/5/17 5:59 PM
-  ~    Updated at: 7/5/17 5:50 PM
+  ~    Updated at: 7/15/17 4:14 PM
   ~  ________________________________________
   -->
 
@@ -29,6 +29,23 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:id="@+id/txt_push_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/black"
+        android:textSize="26dp" />
+
+    <TextView
+        android:id="@+id/txt_reg_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 
     <FrameLayout
         android:id="@+id/frame"

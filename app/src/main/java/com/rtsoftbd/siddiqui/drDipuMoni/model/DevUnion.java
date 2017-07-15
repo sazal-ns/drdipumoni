@@ -1,6 +1,11 @@
 /*
- * Copyright By Noor Nabiul Alam Siddiqui  (c) 2017.
+ * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+ * (C) 7/15/17 4:38 PM
  *  www.fb.com/sazal.ns
+ *  _______________________________________
+ *    Name:     DipuMoni
+ *    Updated at: 7/15/17 12:56 PM
+ *  ________________________________________
  */
 
 package com.rtsoftbd.siddiqui.drDipuMoni.model;
@@ -12,7 +17,16 @@ package com.rtsoftbd.siddiqui.drDipuMoni.model;
 public class DevUnion {
     int unionID;
     String unionName;
+    int devUpozilaID;
     DevUpozila devUpozila;
+
+    public int getDevUpozilaID() {
+        return devUpozilaID;
+    }
+
+    public void setDevUpozilaID(int devUpozilaID) {
+        this.devUpozilaID = devUpozilaID;
+    }
 
     public DevUnion() {
     }

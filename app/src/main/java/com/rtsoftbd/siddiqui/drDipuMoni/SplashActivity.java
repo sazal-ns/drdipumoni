@@ -1,10 +1,10 @@
 /*
  * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
- * (C) 7/10/17 5:51 PM
+ * (C) 7/15/17 4:38 PM
  *  www.fb.com/sazal.ns
  *  _______________________________________
  *    Name:     DipuMoni
- *    Updated at: 7/10/17 4:21 PM
+ *    Updated at: 7/13/17 6:03 PM
  *  ________________________________________
  */
 
@@ -181,6 +181,8 @@ public class SplashActivity extends AppCompatActivity {
         protected void onPostExecute(Bitmap result) {
             //imageView.setImageBitmap(result);
             is = true;
+
+
 
             AboutSocial.setImage(convertImage(logo));
             db.insertAboutData();

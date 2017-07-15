@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "489592245334",
+    "firebase_url": "https://dipumoni-d7d49.firebaseio.com",
+    "project_id": "dipumoni-d7d49",
+    "storage_bucket": "dipumoni-d7d49.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489592245334:android:bbcb365baa3f00ca",
+        "android_client_info": {
+          "package_name": "com.rtsoftbd.siddiqui.drDipuMoni"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "489592245334-77fqmgnkbvdv0nb9dqh0mjmfqvkaer0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbXiwhlci-OSqPFRmeokiRsRfDODvsL2w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

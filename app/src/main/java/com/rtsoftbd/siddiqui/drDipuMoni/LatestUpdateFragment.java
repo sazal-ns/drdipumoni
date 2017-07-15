@@ -1,10 +1,10 @@
 /*
  * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
- * (C) 7/10/17 5:51 PM
+ * (C) 7/15/17 4:38 PM
  *  www.fb.com/sazal.ns
  *  _______________________________________
  *    Name:     DipuMoni
- *    Updated at: 7/10/17 4:23 PM
+ *    Updated at: 7/15/17 12:05 PM
  *  ________________________________________
  */
 
@@ -129,6 +129,7 @@ public class LatestUpdateFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
+                    db.deleteAll(LocalDB.TABLE_LATEST_UPDATE);
                     JSONObject jsonObject = new JSONObject(response);
 
                     Iterator keys = jsonObject.keys();
@@ -144,6 +145,7 @@ public class LatestUpdateFragment extends Fragment {
                             resume.setPictureString(object.getString("image"));
 
                             resumes.add(resume);
+                            db.insertLatestUpdate(resume, 3);
 
                         }
                     }
@@ -159,7 +161,8 @@ public class LatestUpdateFragment extends Fragment {
                 Log.e("Error", error.toString());
                 if (error.toString().contains("NoConnectionError")){
                     Snackbar.make(getView(),"No Active Internet! Showing last synchronized data", 5000).show();
-
+                    resumes.addAll(db.getAllLatestUpdate());
+                    listAdapter.notifyDataSetChanged();
                 }
             }
         }) {

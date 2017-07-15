@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+  ~ (C) 7/15/17 4:38 PM
   ~  www.fb.com/sazal.ns
   ~  _______________________________________
   ~    Name:     DipuMoni
-  ~    Created at:  7/5/17 5:59 PM
-  ~    Updated at: 7/5/17 5:50 PM
+  ~    Updated at: 7/15/17 4:13 PM
   ~  ________________________________________
   -->
 
@@ -31,5 +31,7 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
+
+
 
 </android.support.v4.widget.DrawerLayout>

@@ -1,6 +1,11 @@
 /*
- * Copyright By Noor Nabiul Alam Siddiqui  (c) 2017.
+ * Copyright By Noor Nabiul Alam Siddiqui on Behalf of RTsoftBD
+ * (C) 7/15/17 4:38 PM
  *  www.fb.com/sazal.ns
+ *  _______________________________________
+ *    Name:     DipuMoni
+ *    Updated at: 7/15/17 12:58 PM
+ *  ________________________________________
  */
 
 package com.rtsoftbd.siddiqui.drDipuMoni;
@@ -35,6 +40,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.rtsoftbd.siddiqui.drDipuMoni.customeAdapter.StatusAdapter;
 import com.rtsoftbd.siddiqui.drDipuMoni.helper.ApiUrl;
 import com.rtsoftbd.siddiqui.drDipuMoni.helper.AppController;
+import com.rtsoftbd.siddiqui.drDipuMoni.helper.LocalDB;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.DevUnion;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.DevUpozila;
 import com.rtsoftbd.siddiqui.drDipuMoni.model.Status;
@@ -84,6 +90,8 @@ public class DevWorkFragment extends Fragment {
     private boolean isSpinnerTouched = false;
     private boolean isSpinnerTouched2 = false;
 
+    private LocalDB db;
+
     public DevWorkFragment() {
         // Required empty public constructor
     }
@@ -119,6 +127,7 @@ public class DevWorkFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        db = new LocalDB(getActivity().getApplicationContext());
         View v =  inflater.inflate(R.layout.fragment_dev_work, container, false);
         final ListView ms_list = (ListView) v.findViewById(R.id.devList);
         unionSpinner = (Spinner) v.findViewById(R.id.unionSpinnerDev);
@@ -373,7 +382,7 @@ public class DevWorkFragment extends Fragment {
                     if (error.toString().contains("NoConnectionError")) {
                         new AlertDialog.Builder(getContext())
                                 .setTitle("Error")
-                                .setMessage("No Active Internet Connection :(")
+                                .setMessage("No Active Internet Connection :(\nTo get update you must have active internet connection")
                                 .show();
                     }
                 }
